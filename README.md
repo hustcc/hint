@@ -4,7 +4,7 @@
  
 > 一个简单的 **markdown** 静态检查的控制台 `cli` 工具，可以方便 markdown 开发者轻松集成 travis 自动检测。
 
-[![Latest Stable Version](https://img.shields.io/pypi/v/hint.svg)](https://pypi.python.org/pypi/redis-monitor) [![Build Status](https://travis-ci.org/hustcc/hint.svg?branch=master)](https://travis-ci.org/hustcc/hint) 
+[![Latest Stable Version](https://img.shields.io/pypi/v/hint.svg)](https://pypi.python.org/pypi/hint) [![Build Status](https://travis-ci.org/hustcc/hint.svg?branch=master)](https://travis-ci.org/hustcc/hint) 
 
 
 ## 一、安装
