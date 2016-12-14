@@ -73,5 +73,5 @@ setup(name='hint',
       zip_safe=False,
       packages=['hint'],
       entry_points={
-        'console_scripts': ['hint=hint.entry:run']
+        'console_scripts': ['hint=hint.cli:run']
       })

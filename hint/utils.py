@@ -15,7 +15,15 @@ def is_latin(c):
 def is_space(c):
     '''decide c is space
     '''
-    return c == ' '
+    return c.isspace()
+
+
+def is_zh_symbol(c):
+    return c in u'，。；「」：《》『』、[]（）*_？'
+
+
+def is_fw_number(c):
+    return c in u'０１２３４５６７８９'
 
 
 def ignore_errorcode(errors, ignores):
@@ -32,3 +40,15 @@ def ignore_errorcode(errors, ignores):
 
 def format_errors(errors, format):
     return [e.format(format) for e in errors]
+
+
+def typeof(c):
+    if is_space(c):
+        return 'space'
+    if is_latin(c):
+        return 'latin'
+    if is_zh_symbol(c):
+        return 'zh_sym'
+    if is_fw_number(c):
+        return 'fw_num'
+    return 'zh'

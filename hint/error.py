@@ -6,14 +6,22 @@ Created on 2016-12-13
 '''
 
 errors = {
-    'E101': 'E101',
-    'E102': 'E101',
-    'E103': 'E101',
-    'E104': 'E101',
-    'E201': 'E101',
-    'E301': 'E101',
-    'E302': 'E101',
-    'E401': 'E101'
+    # 空格
+    'E101': u'英文与非标点的中文之间需要有一个空格',
+    'E102': u'数字与非标点的中文之间需要有一个空格',
+    'E103': u'除了％、℃、°、以及倍数单位（如 2x、3n）之外，数字与单位之间需要增加空格',
+    'E104': u'全角标点与其他字符之间不加空格',
+    'E105': u'全角标点与其他字符之间不加空格',
+    # 标点符号
+    'E201': u'不重复使用标点符号',
+    'E202': u'只有中文或中英文混排中，一律使用中文全角标点',
+    'E203': u'如果出现整句英文，则在这句英文中使用英文、半角标点',
+    'E204': u'中文文案中使用中文引号「」和『』，其中「」为外层引号',
+    'E205': u'省略号请使用……标准用法',
+    'E206': u'英文中出现英文、半角标点之后，需要有空格',
+    # 数字
+    'E301': u'数字不使用半角字符',
+    'E401': u'遇到完整的英文整句、特殊名词，其內容使用半角标点'
 }
 
 
@@ -36,7 +44,9 @@ class Error(object):
         end = start + length
         end = end > text_len and text_len or end
 
-        return '...%s...' % self.text[start:end]
+        return u'...%s<%s>%s...' % (self.text[start:self.error_index],
+                                    self.code,
+                                    self.text[self.error_index:end])
 
     def json_format(self):
         rst = {}
@@ -47,7 +57,7 @@ class Error(object):
         return rst
 
     def text_format(self):
-        return '%s:%s - %s "%s"' % \
+        return u'%s:COL<%s>:%s:"%s"' % \
             (self.code, self.error_index,
              self.description(), self.short_text())
 
