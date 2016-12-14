@@ -58,3 +58,5 @@ target/
 .pydevproject
 .project
 .settings
+
+local_test.py

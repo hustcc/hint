@@ -9,6 +9,7 @@ import click
 import sys
 import hint
 import utils
+import json
 
 
 @click.command()
@@ -20,12 +21,19 @@ import utils
               help='The output format of error information.')
 def hint_entry(file, ignore, format):
     md_text = file.read()
-
+    # check results
     errors = hint.check(md_text)
-
+    # ignores
     errors = utils.ignore_errorcode(errors, ignore)
+    # format output array / dict
+    errors = utils.format_errors(errors, format)
 
-    utils.echo_error(errors, format)
+    if format == 'json':
+        errors = json.dumps(errors, indent=2)
+    else:
+        errors = '\n'.join(errors)
+    # echo
+    click.echo(errors)
 
     sys.exit(len(errors) and 1 or 0)
 

@@ -8,7 +8,7 @@ Created on 2016-12-13
 from error import Error
 
 
-def check(md_text):
+def check(text):
     '''TODO
     '''
     errors = []

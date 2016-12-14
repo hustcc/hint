@@ -16,7 +16,9 @@
 
 ## 二、使用
 
-简单使用方法如下：
+使用方法有两种:
+
+**2.1 一种是`命令行 cli 方式`**，简单使用方法如下：
 
 > **hint markdown_file**
 
@@ -34,6 +36,23 @@ Options:
   --help         Show this message and exit.
 
 ```
+
+可以用于直接集成到各种 ci 系统中，例如 travis 。
+
+**2.2 另外一种是`代码 API 调用的方式`**，简单使用方法如下：
+
+```py
+import hint
+
+text='''
+hint 是一个简单的 **markdown** 静态检查的控制台 `cli` 工具。
+可以方便 markdown 开发者轻松集成 travis 自动检测。
+'''
+
+errors = hint.check(text, ignore='E201')
+```
+
+可以方便的进行第三方扩展开发。
 
 
 ## 三、错误码

@@ -4,8 +4,6 @@ Created on 2016年12月13日
 
 @author: hustcc
 '''
-import click
-import json
 
 
 def is_latin(c):
@@ -26,10 +24,5 @@ def ignore_errorcode(errors, ignores):
     return errors
 
 
-def echo_error(errors, format):
-    errors = [e.format(format) for e in errors]
-    if format == 'json':
-        errors = json.dumps(errors, indent=2)
-    else:
-        errors = '\n'.join(errors)
-    click.echo(errors)
+def format_errors(errors, format):
+    return [e.format(format) for e in errors]
