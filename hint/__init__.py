@@ -19,4 +19,6 @@ def check(text, ignore='', format='json'):
     errors = utils.ignore_errorcode(errors, ignore)
     # format output array / dict
     errors = utils.format_errors(errors, format)
+    if format != 'json':
+        errors = '\n'.join(errors)
     return errors

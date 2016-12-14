@@ -5,15 +5,19 @@ Created on 2016-12-13
 @author: hustcc
 '''
 
-from error import Error
+import parsing
+import functools
+
+
+def do_paragraph(errors, p):
+    tokens = parsing.tokenizer(p)
+    new_errors = parsing.detect_errors(tokens)
+    return errors + new_errors
 
 
 def check(text):
-    '''TODO
+    '''check the error in mark down text
     '''
-    errors = []
-    for i in xrange(3):
-        errors.append(Error('或者使用 `hint --help` 查看帮助信息和具体详细的使用方法。',
-                            'E201',
-                            i * 3))
-    return errors
+    paragraph = parsing.to_paragraph_array(text)
+    # reduce to detect errors.
+    return functools.reduce(do_paragraph, paragraph, [])

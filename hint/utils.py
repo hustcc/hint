@@ -12,6 +12,12 @@ def is_latin(c):
     return ord(c) < 256
 
 
+def is_space(c):
+    '''decide c is space
+    '''
+    return c == ' '
+
+
 def ignore_errorcode(errors, ignores):
     '''ignore the errors in ignores
     '''
