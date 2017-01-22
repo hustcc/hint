@@ -11,7 +11,7 @@ import functools
 
 def do_paragraph(errors, p):
     tokens = parsing.tokenizer(p)
-    new_errors = parsing.detect_errors(tokens)
+    new_errors = parsing.detect_errors(tokens, p)
     return errors + new_errors
 
 

@@ -33,7 +33,7 @@ def hint_entry(file, ignore, format):
     else:
         errors = '\n'.join(errors)
     # echo
-    click.echo(errors)
+    click.echo(errors or '^_^ No Hint, well done.')
 
     sys.exit(len(errors) and 1 or 0)
 

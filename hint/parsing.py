@@ -5,13 +5,19 @@ Created on 2016-12-13
 @author: hustcc
 '''
 import functools
-import error
 import utils
+import re
 
 
 def pre_process(md_text):
     '''pre process the mark down text string.
     '''
+    # 1. 去除代码块
+    md_text = re.sub(r'(```.*```)', '', md_text, flags=re.I | re.S)
+    # 2. 删除图片
+    md_text = re.sub(r'(\!\[.*?\]\(.*?\))', '', md_text, flags=re.I)
+    # 3. 提取链接内容
+    md_text = re.sub(r'\[(.*?)]\(.*?\)', '\g<1>', md_text, flags=re.I)
     return md_text or u''
 
 
@@ -27,34 +33,26 @@ def to_paragraph_array(md_text):
     return [line for line in md_lines if line.strip()]
 
 
-def reduce_handler(token, c):
-    '''TODO: how to reduce to get token strings.'''
-    tokens = token[0]
-    pre_token = token[1]
-
+def reduce_handler(tokens, c):
+    '''how to reduce to get token strings.'''
     type = utils.typeof(c)
-    print type
-    # if is the first char of token, return for next
-    if pre_token is False:
-        token[1] = {'type': type, 'text': c}
-        return token
-
-    # if not the first char of token
-    # 需要判断各种不同情况下，不同 type 组合的类型，状态机
-    tokens
-    return token
+    tokens.append({'type': type, 'text': c})
+    return tokens
 
 
 def tokenizer(p):
     '''parse each mark down text line, get the tokenizer of the line'''
-    tokens = functools.reduce(reduce_handler, p, [[], False])
+    tokens = functools.reduce(reduce_handler, p, [])
     return tokens
 
 
-def detect_errors(tokens):
-    '''TODO: detect error code from tokens.'''
+def detect_errors(tokens, p):
+    '''detect error code from tokens.'''
     errors = []
-    for i in xrange(3):
-        errors.append(error.Error(u'或者使用 `hint --help` 查看帮助信息和具体详细的使用方法。',
-                                  'E201', i * 3))
+    # 自动加载所有的检测器
+    detectors = utils.load_detectors()
+
+    for detector in detectors:
+        errors += errors + detector(tokens, p).errors()
+
     return errors

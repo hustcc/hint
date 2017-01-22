@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import setuptools  # noqa
 from distutils.core import setup
 import io
 import re
@@ -71,7 +72,7 @@ setup(name='hint',
       keywords='hint, lint, markdown, rules, error',
       include_package_data=True,
       zip_safe=False,
-      packages=['hint'],
+      packages=['hint', 'hint.detector'],
       entry_points={
         'console_scripts': ['hint=hint.cli:run']
       })

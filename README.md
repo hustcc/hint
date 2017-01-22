@@ -16,7 +16,7 @@
 
 ## 二、使用
 
-使用方法有两种:
+使用方法有两种：
 
 **2.1 一种是`命令行 cli 方式`**，简单使用方法如下：
 
@@ -37,7 +37,7 @@ Options:
 
 ```
 
-可以用于直接集成到各种 ci 系统中，例如 travis 。
+可以用于直接集成到各种 ci 系统中，例如 travis。
 
 **2.2 另外一种是`代码 API 调用的方式`**，简单使用方法如下：
 
@@ -57,14 +57,14 @@ errors = hint.check(text, ignore='E201')
 
 ## 三、错误码
 
-检查规则来源于 [chinese-copywriting-guidelines](https://github.com/sparanoid/chinese-copywriting-guidelines) ，错误码命名方式参考于 flake8 。目前支持的错误码如下所示：
+检查规则来源于 [chinese-copywriting-guidelines](https://github.com/sparanoid/chinese-copywriting-guidelines)，错误码命名方式参考于 flake8。目前支持的错误码如下所示：
 
 | 错误码 | 检查类型 | 详细描述 |
 | ------ | ------ | ------ |
 | E101   | 空格 | 中英文之间需要增加空格 |
 | E102   | 空格 | 中文与数字之间需要增加空格 |
-| E103   | 空格 | 数字与单位之间需要增加空格 |
-| E104   | 空格 | 全角标点与其他字符之间不加空格 |
+| E103   | 空格 | 全角标点与其他字符之间不加空格 |
+| E104   | 空格 | 除了％、℃、°、以及倍数单位（如 2x、3n）之外，数字与单位之间需要增加空格 |
 | E201   | 标点符号 | 不重复使用标点符号 |
 | E301   | 全角半角 | 使用全角中文标点 |
 | E302   | 全角半角 | 数字使用半角字符 |

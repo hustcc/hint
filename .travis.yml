@@ -5,4 +5,4 @@ python:
 before_install:
   - pip install flake8
   - pip install hint
-script: flake8
+script: flake8 && hint README.md
