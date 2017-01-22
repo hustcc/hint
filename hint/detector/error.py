@@ -47,23 +47,23 @@ class Error(object):
                               self.code,
                               self.text[self.error_index:end])
 
-    def json_format(self):
+    def json_format(self, fn):
         rst = {}
         rst['code'] = self.code
         rst['text'] = self.short_text()
         rst['error_index'] = self.error_index
         rst['description'] = self.description()
-        return rst
+        return {fn: rst}
 
-    def text_format(self):
-        return u'%s:COL<%s>:%s:"%s"' % \
-            (self.code, self.error_index,
+    def text_format(self, fn):
+        return u'%s:%s:COL<%s>:%s:"%s"' % \
+            (fn, self.code, self.error_index,
              self.description(), self.short_text())
 
-    def format(self, format='text'):
+    def format(self, format='text', fn='anonymous'):
         if format == 'json':
-            return self.json_format()
-        return self.text_format()
+            return self.json_format(fn)
+        return self.text_format(fn)
 
 
 class BaseDetector(object):

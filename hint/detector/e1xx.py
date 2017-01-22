@@ -29,7 +29,8 @@ class Detector(error.BaseDetector):
         errors = []
         token_types = [token['type'] for token in self.tokens]
         token_types = '_'.join(token_types)
-
+#         print self.p
+#         print token_types
         for sm in self.error_sm:
             indexs = self.find_all_string(token_types, sm[1])
             for i in indexs:

@@ -18,6 +18,8 @@ def pre_process(md_text):
     md_text = re.sub(r'(\!\[.*?\]\(.*?\))', '', md_text, flags=re.I)
     # 3. 提取链接内容
     md_text = re.sub(r'\[(.*?)]\(.*?\)', '\g<1>', md_text, flags=re.I)
+    # 4. 去除 ``
+    md_text = re.sub(r'`(.*?)`', '\g<1>', md_text, flags=re.I)
     return md_text or u''
 
 

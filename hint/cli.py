@@ -14,9 +14,9 @@ import json
 
 @click.command()
 @click.argument('file', type=click.File(encoding='utf-8'))
-@click.option('--ignore', default='',
+@click.option('-i', '--ignore', default='',
               help='The error codes which will be ignored.')
-@click.option('--format', default='text',
+@click.option('-f', '--format', default='text',
               type=click.Choice(['text', 'json']),
               help='The output format of error information.')
 def hint_entry(file, ignore, format):
@@ -26,16 +26,17 @@ def hint_entry(file, ignore, format):
     # ignores
     errors = utils.ignore_errorcode(errors, ignore)
     # format output array / dict
-    errors = utils.format_errors(errors, format)
+    errors = utils.format_errors(errors, format, fn=file.name)
 
+    fail = len(errors) and True or False
     if format == 'json':
         errors = json.dumps(errors, indent=2)
     else:
         errors = '\n'.join(errors)
     # echo
-    click.echo(errors or '^_^ No Hint, well done.')
+    click.echo(fail and errors or '^_^ No Hint, well done.')
 
-    sys.exit(len(errors) and 1 or 0)
+    sys.exit(fail and 1 or 0)
 
 
 def run():

@@ -13,14 +13,14 @@ def is_latin(c):
 
 
 def is_space(c):
-    '''decide c is space
+    '''decide c is space，中文
     '''
     return c.isspace()
 
 
 def is_number(c):
     # 是否是数字
-    return c.isnumeric()
+    return c.isdigit()
 
 
 def is_unit(c):
@@ -55,8 +55,8 @@ def ignore_errorcode(errors, ignores):
     return errors
 
 
-def format_errors(errors, format):
-    return [e.format(format) for e in errors]
+def format_errors(errors, format, fn='anonymous'):
+    return [e.format(format, fn) for e in errors]
 
 
 def typeof(c):
@@ -64,14 +64,14 @@ def typeof(c):
         return 'N'  # number
     if is_space(c):
         return 'S'  # space
-    if is_latin(c):
-        return 'L'  # latin
     if is_zh_symbol(c):
         return 'H'  # zh sym
     if is_fw_number(c):
         return 'F'  # fw number
     if is_zh(c):
         return 'Z'  # zh
+    if is_latin(c):
+        return 'L'  # latin
     return 'O'  # other， no limit
 
 
