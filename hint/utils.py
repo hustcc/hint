@@ -44,6 +44,15 @@ def is_zh(c):
     return u'\u4e00' <= c <= u'\u9fff' and True or False
 
 
+def is_zh_unit(c):
+    '''判断是否为单位'''
+    return c in u'％℃°'
+
+
+def is_en_unit(c):
+    return c in 'xn'
+
+
 def ignore_errorcode(errors, ignores):
     '''ignore the errors in ignores
     '''
@@ -63,6 +72,10 @@ def format_errors(errors, format):
 def typeof(c):
     if is_number(c):
         return 'N'  # number
+    if is_zh_unit(c):
+        return 'U'  # zh unit
+    if is_en_unit(c):
+        return 'V'  # en unit
     if is_space(c):
         return 'S'  # space
     if is_zh_symbol(c):

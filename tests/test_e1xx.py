@@ -45,12 +45,10 @@ class TestE1xx(unittest.TestCase):
         self.assertEqual(len(errors), 1)
         for e in errors:
             e = e.split('\n')
-            for ei in e:
-                ei = ei.split(':')
-            self.assertEqual(ei[0], 'E102')
+            self.assertEqual(len(e), 3 + 1)
         # ignore
         errors = hint.check_file('tests/md/E102.md', ignore='E102')
-        self.assertEqual(len(errors.get('tests/md/E102.md', [])), 0)
+        self.assertEqual(len(errors.get('tests/md/E102.md', [])), 1)
 
     def test_e103(self):
         # check file
