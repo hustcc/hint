@@ -9,7 +9,7 @@ import hint
 import utils
 
 
-__version__ = '0.0.3'
+__version__ = '0.0.4'
 
 
 def check(text, ignore='', format='json', fn='anonymous'):
