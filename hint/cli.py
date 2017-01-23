@@ -10,29 +10,48 @@ import sys
 import hint
 import utils
 import json
+import os
 
 
 @click.command()
-@click.argument('file', type=click.File(encoding='utf-8'))
+@click.argument('file', type=click.Path(exists=True))
 @click.option('-i', '--ignore', default='',
               help='The error codes which will be ignored.')
 @click.option('-f', '--format', default='text',
               type=click.Choice(['text', 'json']),
               help='The output format of error information.')
-def hint_entry(file, ignore, format):
-    md_text = file.read()
-    # check results
-    errors = hint.check(md_text)
-    # ignores
-    errors = utils.ignore_errorcode(errors, ignore)
-    # format output array / dict
-    errors = utils.format_errors(errors, format, fn=file.name)
+@click.option('-m', '--max-depth', default=3,
+              type=click.INT,
+              help='The max depth for traverse the path.')
+def hint_entry(file, ignore, format, max_depth):
+    files = []
+    if os.path.isdir(file):
+        # 遍历 n 层，获得所有的 .md 文件
+        files = utils.traversing_path([], file, max_depth=max_depth)
+    elif os.path.isfile(file):
+        files.append(file)
 
-    fail = len(errors) and True or False
+    errors_dict = {}  # check results
+    cnt = 0
+    for fn in files:
+        # check files & ignore
+        errors = hint.check_file(fn, ignore)
+        cnt += len(errors)
+        errors_dict[fn] = errors
+
+    # format output array / dict
+    errors_dict = {fn: utils.format_errors(errors, format)
+                   for fn, errors in errors_dict.items()}
+    # success or fail
+    fail = cnt and True or False
+    errors = ''  # errors text to be console.log
     if format == 'json':
-        errors = json.dumps(errors, indent=2)
+        errors = json.dumps(errors_dict, indent=2)
     else:
-        errors = '\n'.join(errors)
+        errors = ['File:%s\n%s' % (k, '\n'.join(es))
+                  for k, es in errors_dict.items()
+                  if len(es) > 0]
+        errors = '\n\n'.join(errors)
     # echo
     click.echo(fail and errors or '^_^ No Hint, well done.')
 

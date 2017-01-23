@@ -26,14 +26,13 @@
 
 ```shell
 $ hint --help
-Usage: hint-script.py [OPTIONS]
+Usage: hint-script.py [OPTIONS] FILE
 
 Options:
-  --ignore TEXT  The error codes which will be
-                 ignored.
-  --format TEXT  The output format of error
-                 information.
-  --help         Show this message and exit.
+  -i, --ignore TEXT         The error codes which will be ignored.
+  -f, --format [text|json]  The output format of error information.
+  -m, --max-depth INTEGER   The max depth for traverse the path.
+  --help                    Show this message and exit.
 
 ```
 

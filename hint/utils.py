@@ -4,6 +4,7 @@ Created on 2016年12月13日
 
 @author: hustcc
 '''
+import os
 
 
 def is_latin(c):
@@ -55,8 +56,8 @@ def ignore_errorcode(errors, ignores):
     return errors
 
 
-def format_errors(errors, format, fn='anonymous'):
-    return [e.format(format, fn) for e in errors]
+def format_errors(errors, format):
+    return [e.format(format) for e in errors]
 
 
 def typeof(c):
@@ -102,3 +103,28 @@ def load_detectors():
 #                 continue
 
     return detectors_on
+
+
+def traversing_path(all_files, path, depth=0, max_depth=3, suffixs=['.md']):
+    # 目录，新增一级
+    depth += 1
+    if depth > max_depth:
+        return all_files
+
+    ls = os.listdir(path)
+    files = [f for f in ls if os.path.isfile(os.path.join(path, f))]
+    dirs = [d for d in ls if os.path.isdir(os.path.join(path, d))]
+
+    for d in dirs:
+        all_files += traversing_path(all_files, os.path.join(path, d),
+                                     depth=depth,
+                                     max_depth=max_depth,
+                                     suffixs=suffixs)
+    # 添加到最后的 files 中
+    fs = [os.path.join(path, f) for f in files if f[-3:] in suffixs]
+    fs = depth == 1 and all_files + fs or fs
+    return fs
+
+
+if __name__ == '__main__':
+    print(traversing_path([], 'E:/Work/git_code/hint', max_depth=4))

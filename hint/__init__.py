@@ -19,9 +19,12 @@ def check(text, ignore='', format='json', fn='anonymous'):
     # ignores
     errors = utils.ignore_errorcode(errors, ignore)
     # format output array / dict
-    errors = utils.format_errors(errors, format, fn=fn)
+    errors = {fn: utils.format_errors(errors, format)}
     if format != 'json':
-        errors = '\n'.join(errors)
+        errors = ['File:%s\n%s' % (k, '\n'.join(es))
+                  for k, es in errors.items()
+                  if len(es) > 0]
+        errors = '\n\n'.join(errors)
     return errors
 
 

@@ -25,10 +25,10 @@ errors = {
 
 
 class Error(object):
-    def __init__(self, text, code, error_index):
+    def __init__(self, text, code, index=0):
         self.text = text
         self.code = code
-        self.error_index = error_index
+        self.index = index
 
     def description(self):
         return errors.get(self.code, 'unknow')
@@ -37,33 +37,33 @@ class Error(object):
         text_len = len(self.text)
         half_len = length / 2
 
-        start = self.error_index - half_len
+        start = self.index - half_len
         start = start > 0 and start or 0
 
         end = start + length
         end = end > text_len and text_len or end
 
-        return u'%s<%s>%s' % (self.text[start:self.error_index],
+        return u'%s<%s>%s' % (self.text[start:self.index],
                               self.code,
-                              self.text[self.error_index:end])
+                              self.text[self.index:end])
 
-    def json_format(self, fn):
+    def json_format(self):
         rst = {}
         rst['code'] = self.code
         rst['text'] = self.short_text()
-        rst['index'] = self.error_index
+        rst['index'] = self.index
         rst['description'] = self.description()
-        return {fn: rst}
+        return rst
 
-    def text_format(self, fn):
-        return u'%s:%s:COL<%s>:%s:"%s"' % \
-            (fn, self.code, self.error_index,
+    def text_format(self):
+        return u'%s:COL<%s>:%s:"%s"' % \
+            (self.code, self.index,
              self.description(), self.short_text())
 
-    def format(self, format='text', fn='anonymous'):
+    def format(self, format='text'):
         if format == 'json':
-            return self.json_format(fn)
-        return self.text_format(fn)
+            return self.json_format()
+        return self.text_format()
 
 
 class BaseDetector(object):
