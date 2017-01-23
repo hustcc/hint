@@ -51,7 +51,7 @@ class Error(object):
         rst = {}
         rst['code'] = self.code
         rst['text'] = self.short_text()
-        rst['error_index'] = self.error_index
+        rst['index'] = self.error_index
         rst['description'] = self.description()
         return {fn: rst}
 

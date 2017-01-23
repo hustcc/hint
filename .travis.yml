@@ -5,4 +5,5 @@ python:
 before_install:
   - pip install flake8
   - python setup.py install
-script: flake8 && hint README.md
+  - chmod 777 tests/test.sh
+script: flake8 && ./tests/test.sh && hint README.md
