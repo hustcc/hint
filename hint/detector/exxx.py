@@ -25,6 +25,17 @@ class Detector(error.BaseDetector):
         ['E104', 'N_S_V'],  # 数字后面 ％℃°xn 不需要空格
         ['E104', 'N_L'],  # 数字后面和其他英文单位需要空格
         ['E104', 'N_Z'],  # 数字后面和其他中文单位需要空格
+
+        # TODO
+        # ['E201', ''],
+        # ['E202', ''],
+        # ['E203', ''],
+        # ['E204', ''],
+        # ['E205', ''],
+        # ['E206', ''],
+        # ['E207', ''],
+
+        ['E301', 'F'],  # 数字不使用半角字符
     ]
 
     def __init__(self, tokens, p):
@@ -36,8 +47,6 @@ class Detector(error.BaseDetector):
         errors = []
         token_types = [token['type'] for token in self.tokens]
         token_types = '_'.join(token_types)
-#         print self.p
-#         print token_types
         for sm in self.error_sm:
             indexs = self.find_all_string(token_types, sm[1])
             for i in indexs:

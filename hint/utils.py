@@ -21,7 +21,7 @@ def is_space(c):
 
 def is_number(c):
     # 是否是数字
-    return c.isdigit()
+    return c in '1234567890'
 
 
 def is_unit(c):
@@ -81,7 +81,7 @@ def typeof(c):
     if is_zh_symbol(c):
         return 'H'  # zh sym
     if is_fw_number(c):
-        return 'F'  # fw number
+        return 'F'  # 全角 number
     if is_zh(c):
         return 'Z'  # zh
     if is_latin(c):
@@ -94,26 +94,13 @@ detectors_on = None
 
 def load_detectors():
     '''加载所有的检测器'''
+    # 缓存一下，避免多次加载
     global detectors_on
     if detectors_on:
         return detectors_on
 
-    from detector import e1xx
-    detectors_on = [e1xx.Detector]
-#     detector_files = os.listdir(os.path.join(os.getcwd(), 'hint/detector/'))
-#     for detector_file in detector_files:
-#         if detector_file.endswith('.py') and \
-#                 detector_file not in ['__init__.py', 'error.py']:
-#             detector_file = detector_file[0:-3]
-#             try:
-#                 module_path = 'hint.detector.%s' % detector_file
-#                 plugin = __import__(module_path)
-#                 plugin_class = getattr(getattr(getattr(plugin, 'detector'),
-#                                        detector_file), 'Detector')
-#                 if plugin_class:
-#                     detectors.append(plugin_class)
-#             except:
-#                 continue
+    from detector import exxx
+    detectors_on = [exxx.Detector]
 
     return detectors_on
 
