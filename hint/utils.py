@@ -29,9 +29,19 @@ def is_unit(c):
     return 'TODO'
 
 
-def is_zh_symbol(c):
+def is_fw_symbol(c):
     # 是否为中文符号
-    return c in u'，。；「」：《》『』、[]（）？'
+    return c in u'，。；：、？！'
+
+
+def is_hw_symbol(c):
+    # 是否为中文符号
+    return c in ',.;:\?!'
+
+
+def is_ellipsis_symbol(c):
+    # 是否是省略号
+    return c in u'…'
 
 
 def is_fw_number(c):
@@ -78,8 +88,12 @@ def typeof(c):
         return 'V'  # en unit
     if is_space(c):
         return 'S'  # space
-    if is_zh_symbol(c):
+    if is_ellipsis_symbol(c):  # 省略号
+        return 'E'
+    if is_fw_symbol(c):
         return 'H'  # zh sym
+    if is_hw_symbol(c):
+        return 'I'  # en sym
     if is_fw_number(c):
         return 'F'  # 全角 number
     if is_zh(c):

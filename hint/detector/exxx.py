@@ -26,12 +26,16 @@ class Detector(error.BaseDetector):
         ['E104', 'N_L'],  # 数字后面和其他英文单位需要空格
         ['E104', 'N_Z'],  # 数字后面和其他中文单位需要空格
 
+        
+        ['E201', 'H_H'],  # 不重复使用标点符号
+        ['E201', 'H_I'],
+        ['E201', 'I_H'],
         # TODO
-        # ['E201', ''],
         # ['E202', ''],
         # ['E203', ''],
-        # ['E204', ''],
-        # ['E205', ''],
+        # ['E204', 'E_.*'],
+        # ['E205', 'I_S'],
+        # ['E205', 'L_S'],
         # ['E206', ''],
         # ['E207', ''],
 
@@ -47,6 +51,8 @@ class Detector(error.BaseDetector):
         errors = []
         token_types = [token['type'] for token in self.tokens]
         token_types = '_'.join(token_types)
+        # print self.p
+        # print token_types
         for sm in self.error_sm:
             indexs = self.find_all_string(token_types, sm[1])
             for i in indexs:
