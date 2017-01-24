@@ -38,6 +38,32 @@ class TestE1xx(unittest.TestCase):
                                  ignore='E201')
         self.assertEqual(errors.strip(), '')
 
+    def test_e205_text(self):
+        # check file
+        errors = hint.check_file('tests/md/E205.md', format='text')
+        errors = errors.split('\n\n')
+        self.assertEqual(len(errors), 1)
+        errors = errors[0].split('\n')
+        self.assertEqual(len(errors), 2 + 1)
+        # ignore
+        errors = hint.check_file('tests/md/E205.md',
+                                 format='text',
+                                 ignore='E205')
+        self.assertEqual(errors.strip(), '')
+
+    def test_e206_json(self):
+        # check file
+        errors = hint.check_file('tests/md/E206.md')
+        self.assertEqual(len(errors), 1)
+        self.assertEqual(len(errors.get('tests/md/E206.md', [])), 2)
+        for e in errors.get('tests/md/E206.md', []):
+            self.assertEqual(e.get('code'), 'E206')
+
+        # ignore
+        errors = hint.check_file('tests/md/E206.md', ignore='E206')
+
+        self.assertEqual(len(errors.get('tests/md/E206.md', [])), 0)
+
 
 if __name__ == '__main__':
     unittest.main()

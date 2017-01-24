@@ -59,10 +59,6 @@ def is_zh_unit(c):
     return c in u'％℃°'
 
 
-def is_en_unit(c):
-    return c in 'xn'
-
-
 def ignore_errorcode(errors, ignores):
     '''ignore the errors in ignores
     '''
@@ -84,8 +80,6 @@ def typeof(c):
         return 'N'  # number
     if is_zh_unit(c):
         return 'U'  # zh unit
-    if is_en_unit(c):
-        return 'V'  # en unit
     if is_space(c):
         return 'S'  # space
     if is_ellipsis_symbol(c):  # 省略号

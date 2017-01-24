@@ -59,4 +59,4 @@ target/
 .project
 .settings
 
-local_test.py
+local_test.*
