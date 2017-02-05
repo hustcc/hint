@@ -22,6 +22,10 @@
 
 > **hint markdown_file**
 
+或者
+
+> **hint markdown_folder**
+
 或者使用 `hint --help` 查看帮助信息和具体详细的使用方法。
 
 ```shell
