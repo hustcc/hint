@@ -13,7 +13,8 @@ def pre_process(md_text):
     '''pre process the mark down text string.
     '''
     # 1. 去除代码块
-    md_text = re.sub(r'(```.*```)', '', md_text, flags=re.I | re.S)
+    # md_text = re.sub(r'(```.*```)', '', md_text, flags=re.I | re.S) 贪婪匹配，误删文件内容
+    md_text = re.sub(r'```.*?(.*?)```', '', md_text, flags=re.I | re.S)
     # 2. 删除图片
     md_text = re.sub(r'(\!\[.*?\]\(.*?\))', '', md_text, flags=re.I)
     # 3. 提取链接内容
