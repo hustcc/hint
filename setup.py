@@ -43,7 +43,7 @@ def find_version(*file_paths):
 
 setup(name='hint',
       version=find_version('hint/__init__.py'),
-      description=('A simple markdown lint / hint `cli-tool`, ',
+      description=('A simple markdown lint / hint `cli-tool`, '
                    'for markdown developer integrated with travis.'),
       long_description=DOC,
       author='hustcc',
