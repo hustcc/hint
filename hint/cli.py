@@ -4,11 +4,10 @@ Created on 2016-12-13
 
 @author: hustcc
 '''
-
+from __future__ import absolute_import
+from hint import hint, utils
 import click
 import sys
-import hint
-import utils
 import json
 import os
 

@@ -4,12 +4,11 @@ Created on 2016-12-13
 
 @author: hustcc
 '''
+from __future__ import absolute_import
+from hint import hint, utils
 
-import hint
-import utils
 
-
-__version__ = '1.0.1'
+__version__ = '1.0.2'
 
 
 def check(text, ignore='', format='json', fn='anonymous'):

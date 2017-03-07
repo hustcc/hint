@@ -4,10 +4,9 @@ Created on 2016-12-13
 
 @author: hustcc
 '''
-
-import parsing
+from __future__ import absolute_import
+from hint import parsing, utils
 import functools
-import utils
 
 
 def do_paragraph(errors, p):

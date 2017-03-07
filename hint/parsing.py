@@ -4,9 +4,11 @@ Created on 2016-12-13
 
 @author: hustcc
 '''
+from __future__ import absolute_import
+from hint import utils
 import functools
-import utils
 import re
+import sys
 
 
 def pre_process(md_text):
@@ -30,7 +32,9 @@ def to_paragraph_array(md_text):
     '''parse mark down file, and return all the paragraph array'''
     md_text = pre_process(md_text)
     # change to unicode
-    if type(md_text) is not unicode:
+    if sys.version_info[0] == 3 and not isinstance(md_text, str):
+        md_text = md_text.decode('utf-8')
+    elif sys.version_info[0] == 2 and not isinstance(md_text, unicode):  # noqa
         md_text = md_text.decode('utf-8')
 
     md_lines = md_text.split('\n')

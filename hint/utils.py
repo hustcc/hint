@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 '''
-Created on 2016年12月13日
+Created on 2016-12-13
 
 @author: hustcc
 '''
+from __future__ import absolute_import
 import os
 
 
@@ -107,7 +108,7 @@ def load_detectors():
     if detectors_on:
         return detectors_on
 
-    from detector import exxx
+    from hint.detector import exxx
     detectors_on = [exxx.Detector]
 
     return detectors_on

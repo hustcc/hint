@@ -33,7 +33,7 @@ class Error(object):
 
     def short_text(self, length=20):
         text_len = len(self.text)
-        half_len = length / 2
+        half_len = length // 2
 
         start = self.index - half_len
         start = start > 0 and start or 0

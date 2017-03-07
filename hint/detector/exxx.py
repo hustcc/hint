@@ -4,7 +4,8 @@ Created on Jan 22, 2017
 
 @author: hustcc
 '''
-import error
+from __future__ import absolute_import
+from hint.detector import error
 import re
 
 

@@ -2,4 +2,4 @@
 exclude =
     .svn,CVS,.bzr,.hg,.git,__pycache__,.tox,.eggs,*.egg,
     node_modules, data, docs, build, lib,
-    local_test.py
+    local_test.py,local_test.sh

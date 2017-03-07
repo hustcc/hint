@@ -1,8 +1,8 @@
 # hint
 
-> A simple **markdown** lint / hint `cli-tool`, for markdown developer integrated with travis.
+> A simple **markdown** lint / hint `cli-tool`, for markdown developer integrated with travis. Python 2 / 3 supported.
  
-> 一个简单的 **markdown** 静态检查的控制台 `cli` 工具，可以方便 markdown 开发者轻松集成 travis 自动检测。
+> 一个简单的 **markdown** 静态检查的控制台 `cli` 工具，可以方便 markdown 开发者轻松集成 travis 自动检测。支持 Python 2 / 3。
 
 [![Latest Stable Version](https://img.shields.io/pypi/v/hint.svg)](https://pypi.python.org/pypi/hint) [![Build Status](https://travis-ci.org/hustcc/hint.svg?branch=master)](https://travis-ci.org/hustcc/hint) 
 
