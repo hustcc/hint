@@ -58,14 +58,19 @@ class Detector(error.BaseDetector):
 
     # 如果出现整句英文，则在这句英文中使用英文、半角标点
     def _e203(self, error_code, token_types):
-        errors_all = re.findall(r'LS*HS*L', token_types)
-        i = -1
+        # 如果整行中只有 数字、空格、英文标点、英文、中文标点
+        errors_all = re.match(r'^[NSILOH]*$', token_types)
+
         errors = []
-        for e in errors_all:
-            i = token_types.find(e, i + 1)
-            if i != -1:
-                errors.append(error.Error(self.p, error_code,
-                                          i + 1 + e.index('H')))
+        if not errors_all:
+            return errors
+
+        i = -1
+        while True:
+            i = token_types.find('H', i + 1)
+            if i == -1:
+                break
+            errors.append(error.Error(self.p, error_code, i + 1))
         return errors
 
     # 省略号请使用……标准用法
