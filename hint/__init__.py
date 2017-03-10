@@ -8,7 +8,7 @@ from __future__ import absolute_import
 from hint import hint, utils
 
 
-__version__ = '1.0.3.dev0'
+__version__ = '1.0.4'
 
 
 def check(text, ignore='', format='json', fn='anonymous'):
