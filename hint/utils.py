@@ -6,6 +6,7 @@ Created on 2016-12-13
 '''
 from __future__ import absolute_import
 import os
+import copy
 
 
 def is_latin(c):
@@ -114,26 +115,39 @@ def load_detectors():
     return detectors_on
 
 
-def traversing_path(all_files, path, depth=0, max_depth=3, suffixs=['.md']):
-    # 目录，新增一级
-    depth += 1
-    if depth > max_depth:
-        return all_files
+# 使用非递归的方式，来遍历目中的所有 markdown 文件
+def traversing_path_norecursive(all_files, path,
+                                depth=0,
+                                max_depth=3,
+                                suffixs=['.md']):
+    paths = [path]  # 需要被循环遍历的目录数组
+    # 遍历深度限制
+    paths_tmp = []  # 临时存储每次遍历的目录
+    pj = os.path.join
+    while depth <= max_depth:
+        # 目录，新增一级
+        depth += 1
+        # 遍历这些目录
+        for path in paths:
+            ls = os.listdir(path)  # 目录中所有的文件，文件夹
+            # 所有文件
+            files = [f for f in ls if os.path.isfile(pj(path, f))]
+            # 符合后缀名称的文件，添加到最后的 all_files 中
+            all_files += [
+                pj(path, f) for f in files if f[-3:] in suffixs
+            ]
 
-    ls = os.listdir(path)
-    files = [f for f in ls if os.path.isfile(os.path.join(path, f))]
-    dirs = [d for d in ls if os.path.isdir(os.path.join(path, d))]
+            # 所有文件夹，加入到待遍历数组中
+            paths_tmp += [
+                pj(path, d) for d in ls if os.path.isdir(pj(path, d))
+            ]
+        paths = copy.deepcopy(paths_tmp)
+        # 每次遍历一层之后初始化
+        paths_tmp = []
 
-    for d in dirs:
-        all_files += traversing_path(all_files, os.path.join(path, d),
-                                     depth=depth,
-                                     max_depth=max_depth,
-                                     suffixs=suffixs)
-    # 添加到最后的 files 中
-    fs = [os.path.join(path, f) for f in files if f[-3:] in suffixs]
-    fs = depth == 1 and all_files + fs or fs
-    return fs
+    return all_files
 
 
 if __name__ == '__main__':
-    print(traversing_path([], 'E:/Work/git_code/hint', max_depth=4))
+    print(traversing_path_norecursive([], 'E:/Work/git_code/hint',
+                                      max_depth=4))

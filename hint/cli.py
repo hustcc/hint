@@ -26,7 +26,9 @@ def hint_entry(file, ignore, format, max_depth):
     files = []
     if os.path.isdir(file):
         # 遍历 n 层，获得所有的 .md 文件
-        files = utils.traversing_path([], file, max_depth=max_depth)
+        files = utils.traversing_path_norecursive([],
+                                                  file,
+                                                  max_depth=max_depth)
     elif os.path.isfile(file):
         files.append(file)
 
@@ -39,8 +41,10 @@ def hint_entry(file, ignore, format, max_depth):
         errors_dict[fn] = errors
 
     # format output array / dict
-    errors_dict = {fn: utils.format_errors(errors, format)
-                   for fn, errors in errors_dict.items()}
+    edi = errors_dict.iteritems()
+    errors_dict = {
+        fn: utils.format_errors(errors, format) for fn, errors in edi
+    }
     # success or fail
     fail = cnt and True or False
     errors = ''  # errors text to be console.log
