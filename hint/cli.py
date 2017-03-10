@@ -41,7 +41,7 @@ def hint_entry(file, ignore, format, max_depth):
         errors_dict[fn] = errors
 
     # format output array / dict
-    edi = errors_dict.iteritems()
+    edi = errors_dict.items()
     errors_dict = {
         fn: utils.format_errors(errors, format) for fn, errors in edi
     }
